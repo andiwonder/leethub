@@ -11,24 +11,15 @@
  * @return {boolean}
  */
 var isValidBST = function(root) {
-  let prev = null; 
-  let stack = [];
-  while (true) {
-    while (root != null) { 
-      stack.push(root);
-      root = root.left;
-    }
-
-    if (stack.length === 0) {
-      return true;
-    }
-        
-    let node = stack.pop(); 
-    if (prev != null && prev >= node.val ) {
+  
+  function validate(node, low, high) {
+    if (node === null) return true;
+    if ((low !== null && node.val <= low) ||
+        (high !== null && node.val >= high)) {
       return false;
     }
-
-    prev = node.val; 
-    root = node.right; 
+    return validate(node.left, low, node.val) && validate(node.right, node.val, high);
   }
+
+  return validate(root, null, null);
 };
