@@ -6,13 +6,14 @@ var lengthOfLongestSubstring = function(s) {
         return s.length;
     }
     for(let i = 0; i < s.length;  i++) {
-        if(hash[s[i]] == null) {
+        let char = s[i];
+        if(hash[char] == null) {
             curr += 1;
         } else {
-            curr = Math.min(i - hash[s[i]], curr + 1);
+            curr = Math.min(i - hash[char], curr + 1);
         }
         max_len = Math.max(max_len, curr);
-        hash[s[i]] = i; //save the index
+        hash[char] = i; //save the index
     }
     return max_len;
 };
