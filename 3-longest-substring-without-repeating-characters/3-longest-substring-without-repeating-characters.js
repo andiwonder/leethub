@@ -6,7 +6,7 @@ var lengthOfLongestSubstring = function(s) {
         if(chars[rightChar] === undefined) {
             chars[rightChar] = 1;
         } else {
-            chars[rightChar] = chars[rightChar] + 1;
+            chars[rightChar]++;
         }
         
         while(chars[rightChar] > 1) {
