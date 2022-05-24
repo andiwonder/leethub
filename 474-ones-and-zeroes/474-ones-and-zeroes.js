@@ -4,15 +4,26 @@
  * @param {number} n
  * @return {number}
  */
-var findMaxForm = function(S, M, N) {
-    let dp = Array.from({length:M+1},() => new Uint8Array(N+1))
-    for (let i = 0; i < S.length; i++) {
-        let str = S[i], zeros = 0, ones = 0
-        for (let j = 0; j < str.length; j++)
-            str.charAt(j) === "0" ? zeros++ : ones++
-        for (let j = M; j >= zeros; j--)
-            for (let k = N; k >= ones; k--)
-                dp[j][k] = Math.max(dp[j][k], dp[j-zeros][k-ones] + 1)
+function countzerosandones(str) {
+    let zeros = 0, ones = 0;
+    for(let char of str) {
+        char === '0' ? zeros++ : ones++;
     }
-    return dp[M][N]
+    return [zeros, ones];
+}
+
+var findMaxForm = function(strs, m, n) {
+  const dp = [...new Array(m + 1)].map(() => new Array(n + 1).fill(0));
+    for(let str of strs) {
+        let [zeros, ones] = countzerosandones(str);
+        for(let j = m; j >= zeros; j --) {
+            for(let k = n; k >= ones; k--) {
+                dp[j][k] = Math.max(
+                    1 + dp[j - zeros][k - ones], 
+                    dp[j][k]
+                )
+            }
+        }        
+    }
+    return dp[m][n];
 };
