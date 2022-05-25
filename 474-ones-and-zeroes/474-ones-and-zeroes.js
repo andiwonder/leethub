@@ -13,11 +13,16 @@ function countzerosandones(str) {
 }
 
 var findMaxForm = function(strs, m, n) {
-  const dp = [...new Array(m + 1)].map(() => new Array(n + 1).fill(0));
+  const dp = [];
+    for(let i = 0; i < m + 1; i++) {
+        dp[i] = new Array(n + 1).fill(0);
+    };    
     for(let str of strs) {
+        // console.log('----');
         let [zeros, ones] = countzerosandones(str);
         for(let j = m; j >= zeros; j --) {
             for(let k = n; k >= ones; k--) {
+                // console.log('dp is : ', j, k);
                 dp[j][k] = Math.max(
                     1 + dp[j - zeros][k - ones], 
                     dp[j][k]
