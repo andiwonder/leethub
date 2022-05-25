@@ -15,13 +15,8 @@ var canPartition = function(nums) {
   let mid = sum/2;
 
   function findSub(index, target) {        
-    if(target < 0) return false;
-    if(index === nums.length - 1) {
-      if(target === 0) {
-        return true;
-      }
-      return false;
-    }
+    if(target === 0) return true;
+    if(target < 0 || index === nums.length) return false;
     
     let key = `${index}-${target}`
     if(memo[key] !== undefined) return memo[key];
